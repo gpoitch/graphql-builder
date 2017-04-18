@@ -1,0 +1,25 @@
+{
+  "name": "graphql-builder",
+  "version": "0.1.0",
+  "main": "dist/graphql-builder.js",
+  "module": "dist/graphql-builder.es.js",
+  "jsnext:main": "dist/graphql-builder.es.js",
+  "author": "Garth Poitras <garth22@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "rollup --config --watch",
+    "build": "rollup --config",
+    "lint": "standard --fix",
+    "test:js": "yarn build && mocha tests.js",
+    "test": "yarn lint && yarn test:js",
+    "prepublish": "yarn build",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.4.0",
+    "mocha": "^3.3.0",
+    "rollup": "^0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
+    "standard": "^10.0.2"
+  }
+}
