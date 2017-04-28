@@ -1,11 +1,17 @@
 {
   "name": "graphql-builder",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "main": "dist/graphql-builder.js",
   "module": "dist/graphql-builder.es.js",
   "jsnext:main": "dist/graphql-builder.es.js",
   "author": "Garth Poitras <garth22@gmail.com>",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node" : ">=4"
+  },
   "scripts": {
     "dev": "rollup --config --watch",
     "build": "rollup --config",

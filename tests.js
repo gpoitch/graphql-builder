@@ -205,6 +205,25 @@ fragment Frag5 on Five { five }`
     assert.equal(q.document, expectedDoc)
   })
 
+  it('handles circular referenced fragments', () => {
+    const frag = fragment({
+      name: 'FragFoo',
+      on: 'Foo',
+      definition: `{ id ...FragFoo }`
+    })
+
+    const q = query({
+      definition: `{ ${frag} }`
+    })
+
+    const expectedDef = `{ ...FragFoo }`
+    const expectedDoc = `{ ...FragFoo }
+fragment FragFoo on Foo { id ...FragFoo }`
+
+    assert.equal(q.definition, expectedDef)
+    assert.equal(q.document, expectedDoc)
+  })
+
   it('dedupes fragments', () => {
     const frag1 = fragment({
       name: 'Frag1',

@@ -22,11 +22,16 @@ function extractFragmentName (definition) {
 }
 
 function collectFragments (fragments, collection) {
-  fragments.forEach(name => {
+  for (let i = 0; i < fragments.length; i++) {
+    const name = fragments[i]
     const childFragments = FragmentMap[name].fragments
-    collection.indexOf(name) === -1 && collection.push(name)
-    childFragments.length && collectFragments(childFragments, collection)
-  })
+    if (collection.indexOf(name) === -1) {
+      collection.push(name)
+      childFragments.length && collectFragments(childFragments, collection)
+    } else {
+      break
+    }
+  }
   return collection
 }
 
