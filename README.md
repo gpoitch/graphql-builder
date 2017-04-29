@@ -15,7 +15,7 @@ A simple string utility to build GraphQL queries.
 import { fragment, query, mutation } from 'graphql-builder'
 
 const PostAuthorFragment = fragment(`
-  fragment PostAuthor on Author { 
+  fragment PostAuthor on User { 
     id
     name
   }
@@ -26,7 +26,9 @@ const PostQuery = query(`
     post (id: $id) {
       id
       title
-      ${PostAuthorFragment}
+      author {
+        ${PostAuthorFragment}
+      }
     }
   }
 `)
@@ -37,11 +39,13 @@ query ($id: Int!) {
   post (id: $id) {
     id
     title
-    ...PostAuthor
+    author {
+      ...PostAuthor
+    }
   }
 }
 
-fragment PostAuthor on Author {
+fragment PostAuthor on User {
   id
   name
 }
@@ -57,7 +61,7 @@ import { fragment, query, mutation } from 'graphql-builder'
 
 const PostAuthorFragment = fragment({
   name: 'PostAuthor', // name is optional.  If omitted, will be 'Fragment'+on
-  on: 'Author',
+  on: 'User',
   definition: `{ 
     id
     name
@@ -73,7 +77,9 @@ const PostQuery = query({
     post (id: $id) {
       id
       title
-      ${PostAuthorFragment}
+      author {
+        ${PostAuthorFragment}
+      }
     }
   }`
 })
@@ -84,11 +90,13 @@ query PostQuery ($id: Int!) {
   post (id: $id) {
     id
     title
-    ...PostAuthor
+    author {
+      ...PostAuthor
+    }
   }
 }
 
-fragment PostAuthor on Author {
+fragment PostAuthor on User {
   id
   name
 }
