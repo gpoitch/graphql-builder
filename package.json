@@ -1,11 +1,23 @@
 {
   "name": "graphql-builder",
-  "version": "0.1.3",
+  "version": "0.1.4",
+  "description": "A simple string utility to build GraphQL queries",
   "main": "dist/graphql-builder.js",
   "module": "dist/graphql-builder.es.js",
   "jsnext:main": "dist/graphql-builder.es.js",
   "author": "Garth Poitras <garth22@gmail.com>",
   "license": "MIT",
+  "keywords": [
+    "graphql",
+    "query",
+    "fragment",
+    "mutation",
+    "string"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gdub22/graphql-builder.git"
+  },
   "files": [
     "dist"
   ],
