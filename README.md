@@ -2,8 +2,8 @@
 
 A simple string utility to build GraphQL queries.
 
-## Key Features:
-- Automatically interpolates and includes fragment definitions into a query
+## 🔑 Features:
+- Automatically interpolates and includes fragment definitions into queries
 - Define fragments/queries/mutations as objects so you can extend them
 
 ## Examples:
@@ -12,21 +12,21 @@ A simple string utility to build GraphQL queries.
 <summary>Strings with fragment interpolation</summary>
 
 ```js
-import { fragment, query } from 'graphql-builder'
+import { fragment, query, mutation } from 'graphql-builder'
 
-const FragmentAuthor = fragment(`
-  fragment FragmentAuthor on Author { 
+const PostAuthorFragment = fragment(`
+  fragment PostAuthor on Author { 
     id
     name
   }
 `)
 
 const PostQuery = query(`
-  query (id: Int!) {
+  query ($id: Int!) {
     post (id: $id) {
       id
       title
-      ${FragmentAuthor}
+      ${PostAuthorFragment}
     }
   }
 `)
@@ -37,11 +37,11 @@ query ($id: Int!) {
   post (id: $id) {
     id
     title
-    ...FragmentAuthor
+    ...PostAuthor
   }
 }
 
-fragment FragmentAuthor on Author {
+fragment PostAuthor on Author {
   id
   name
 }
@@ -50,13 +50,13 @@ fragment FragmentAuthor on Author {
 </details>
 
 <details>
-<summary>Utilizing all options</summary>
+<summary>Building with all options</summary>
 
 ```js
-import { fragment, query } from 'graphql-builder'
+import { fragment, query, mutation } from 'graphql-builder'
 
-const FragmentAuthor = fragment({
-  name: 'FragmentAuthor', // name is optional.  If omitted, will be 'Fragment'+on
+const PostAuthorFragment = fragment({
+  name: 'PostAuthor', // name is optional.  If omitted, will be 'Fragment'+on
   on: 'Author',
   definition: `{ 
     id
@@ -66,14 +66,14 @@ const FragmentAuthor = fragment({
 
 const PostQuery = query({
   name: 'PostQuery' // name is optional, unless you have mutliple operations in your request.
-  variables: { // variables are optional. Useful for extending queries.
+  variables: {      // variables are optional. Useful for extending queries.
     id: 'Int!'
   },
   definition: `{
     post (id: $id) {
       id
       title
-      ${FragmentAuthor}
+      ${PostAuthorFragment}
     }
   }`
 })
@@ -84,11 +84,11 @@ query PostQuery ($id: Int!) {
   post (id: $id) {
     id
     title
-    ...FragmentAuthor
+    ...PostAuthor
   }
 }
 
-fragment FragmentAuthor on Author {
+fragment PostAuthor on Author {
   id
   name
 }
