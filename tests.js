@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 const assert = require('assert')
-const { fragment, query } = require('./dist/graphql-builder.js')
+const { fragment, query, mutation } = require('./dist/graphql-builder.js')
 
 describe('fragment', () => {
   it('can build a basic fragment', () => {
@@ -276,5 +276,20 @@ fragment Frag1 on Foo { foo }`
 
     assert.equal(q.definition, expectedDef)
     assert.equal(q.document, expectedDoc)
+  })
+})
+
+describe('mutation', () => {
+  it('can omit a name with variables', () => {
+    const m = mutation({
+      variables: { postId: 'ID!', tagIds: '[ID!]!' },
+      definition: `{ setTagsOfPost(input: {postId: $postId, tagIds: $tagIds}) { post { id } tags { id } } }`
+    })
+
+    const expected = `mutation ($postId: ID!, $tagIds: [ID!]!) { setTagsOfPost(input: {postId: $postId, tagIds: $tagIds}) { post { id } tags { id } } }`
+
+    assert.equal(m.name, '')
+    assert.equal(m.definition, expected)
+    assert.equal(m.document, expected)
   })
 })
