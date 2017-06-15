@@ -1,6 +1,6 @@
 {
   "name": "graphql-builder",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A simple string utility to build GraphQL queries",
   "main": "dist/graphql-builder.js",
   "module": "dist/graphql-builder.es.js",
@@ -22,7 +22,7 @@
     "dist"
   ],
   "engines": {
-    "node" : ">=4"
+    "node": ">=4"
   },
   "scripts": {
     "dev": "rollup --config --watch",
@@ -34,9 +34,9 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
-    "babel-preset-env": "^1.4.0",
-    "mocha": "^3.3.0",
-    "rollup": "^0.41.6",
+    "babel-preset-env": "^1.5.2",
+    "mocha": "^3.4.2",
+    "rollup": "^0.43.0",
     "rollup-plugin-babel": "^2.7.1",
     "standard": "^10.0.2"
   }
