@@ -54,22 +54,22 @@ function createOperation (type, opts) {
     }
     operationDefinition += `(${params.join(', ')}) `
   }
-
   operationDefinition += definition
 
   const fragments = extractFragmentSpreads(definition)
-  const doc = `${operationDefinition}${reduceFragments(fragments)}`
+  const fragmentsString = reduceFragments(fragments)
+  const toString = function () {
+    return `${this.definition}${fragmentsString}`
+  }
 
-  const operationObj = {
+  return {
     name: operationName,
     definition: operationDefinition,
     fragments,
-    document: doc,
-    toString: () => doc,
-    toJSON: () => doc
+    document: `${operationDefinition}${fragmentsString}`,
+    toString: toString,
+    toJSON: toString
   }
-
-  return operationObj
 }
 
 function fragment (opts) {

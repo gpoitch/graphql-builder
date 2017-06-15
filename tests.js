@@ -277,6 +277,39 @@ fragment Frag1 on Foo { foo }`
     assert.equal(q.definition, expectedDef)
     assert.equal(q.document, expectedDoc)
   })
+
+  it('outputs toString/toJSON equal to the document', () => {
+    const frag = fragment({
+      name: 'MyAwesomeFragment',
+      on: 'Foo',
+      definition: `{ id }`
+    })
+
+    const q = query({
+      name: 'MyAwesomeQuery',
+      definition: `{ status ${frag} }`
+    })
+
+    const expected = `query MyAwesomeQuery { status ...MyAwesomeFragment }
+fragment MyAwesomeFragment on Foo { id }`
+
+    assert.equal(q.document, expected)
+    assert.equal(q.toString(), expected)
+    assert.equal(q.toJSON(), expected)
+    assert.equal(JSON.stringify({ query: q }), `{"query":"${expected}"}`.replace(/\n/g, '\\n'))
+  })
+
+  it('can extend definitions', () => {
+    const q = query({
+      definition: `query MyAwesomeQuery { status }`
+    })
+
+    const q2 = Object.assign({}, q, {
+      definition: q.definition.replace('status', 'uptime')
+    })
+
+    assert.equal(q2.toString(), `query MyAwesomeQuery { uptime }`)
+  })
 })
 
 describe('mutation', () => {
