@@ -1,13 +1,13 @@
 import babel from 'rollup-plugin-babel'
 
 export default {
-  entry: 'index.js',
-  targets: [{
-    dest: 'dist/graphql-builder.js',
+  input: 'index.js',
+  output: [{
+    file: 'dist/graphql-builder.js',
     format: 'umd',
-    moduleName: 'GraphQLBuilder'
+    name: 'GraphQLBuilder'
   }, {
-    dest: 'dist/graphql-builder.es.js',
+    file: 'dist/graphql-builder.es.js',
     format: 'es'
   }],
   plugins: [
@@ -16,7 +16,7 @@ export default {
         ['env', {
           targets: {
             browsers: ['last 2 versions', 'IE >= 10'],
-            node: [4]
+            node: [6]
           },
           modules: false
         }]

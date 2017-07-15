@@ -22,7 +22,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
   "scripts": {
     "dev": "rollup --config --watch",
@@ -34,10 +34,11 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
-    "babel-preset-env": "^1.5.2",
-    "mocha": "^3.4.2",
-    "rollup": "^0.43.0",
-    "rollup-plugin-babel": "^2.7.1",
-    "standard": "^10.0.2"
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "mocha": "^3.5.0",
+    "rollup": "^0.48.2",
+    "rollup-plugin-babel": "^3.0.2",
+    "standard": "^10.0.3"
   }
 }
