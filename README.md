@@ -60,7 +60,7 @@ fragment PostAuthor on User {
 import { fragment, query, mutation } from 'graphql-builder'
 
 const PostAuthorFragment = fragment({
-  name: 'PostAuthor', // name is optional.  If omitted, will be 'Fragment'+on
+  name: 'PostAuthor', // name is optional.  If omitted, will be `on`
   on: 'User',
   definition: `{ 
     id

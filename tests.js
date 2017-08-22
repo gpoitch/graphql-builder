@@ -1,8 +1,10 @@
 /* eslint-env mocha */
 const assert = require('assert')
-const { fragment, query, mutation } = require('./dist/graphql-builder.js')
+const { fragment, query, mutation, reset } = require('./dist/graphql-builder.js')
 
 describe('fragment', () => {
+  beforeEach(reset)
+
   it('can build a basic fragment', () => {
     const frag = fragment({
       name: 'MyAwesomeFragment',
@@ -22,10 +24,38 @@ describe('fragment', () => {
       definition: `{ id }`
     })
 
-    const expected = `fragment FragmentFoo on Foo { id }`
+    const expected = `fragment Foo on Foo { id }`
 
-    assert.equal(frag.name, 'FragmentFoo')
+    assert.equal(frag.name, 'Foo')
     assert.equal(frag.definition, expected)
+  })
+
+  it('can omit a name and not override previously unnamed fragments', () => {
+    const frag1 = fragment({
+      on: 'Foo',
+      definition: `{ id }`
+    })
+
+    const frag2 = fragment({
+      on: 'Foo',
+      definition: `{ id }`
+    })
+
+    const frag3 = fragment({
+      on: 'Foo',
+      definition: `{ id }`
+    })
+
+    const expected1 = `fragment Foo on Foo { id }`
+    const expected2 = `fragment Foo1 on Foo { id }`
+    const expected3 = `fragment Foo2 on Foo { id }`
+
+    assert.equal(frag1.name, 'Foo')
+    assert.equal(frag2.name, 'Foo1')
+    assert.equal(frag3.name, 'Foo2')
+    assert.equal(frag1.definition, expected1)
+    assert.equal(frag2.definition, expected2)
+    assert.equal(frag3.definition, expected3)
   })
 
   it('can just use a string definition directly', () => {
@@ -55,7 +85,7 @@ describe('fragment', () => {
       definition: `{ ${frag1} id }`
     })
 
-    const expected = `fragment FragmentBar on Bar { ...FragmentFoo id }`
+    const expected = `fragment Bar on Bar { ...Foo id }`
 
     assert.equal(frag2.definition, expected)
     assert.equal(frag2.fragments.length, 1)
@@ -64,6 +94,8 @@ describe('fragment', () => {
 })
 
 describe('query', () => {
+  beforeEach(reset)
+
   it('can build a basic query', () => {
     const q = query({
       name: 'MyAwesomeQuery',
@@ -313,6 +345,8 @@ fragment MyAwesomeFragment on Foo { id }`
 })
 
 describe('mutation', () => {
+  beforeEach(reset)
+
   it('can omit a name with variables', () => {
     const m = mutation({
       variables: { postId: 'ID!', tagIds: '[ID!]!' },

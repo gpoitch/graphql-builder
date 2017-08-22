@@ -1,7 +1,7 @@
 const REGEX_FRAGMENT_SPREAD = /\.\.\.(\w+)/g
 const REGEX_FRAGMENT_INLINE = /^\s*on/
 const REGEX_FRAGMENT_NAME = /fragment\s*(\w+)/
-const FragmentMap = {}
+let FragmentMap = {}
 
 function extractFragmentSpreads (query) {
   const fragments = []
@@ -72,13 +72,14 @@ function createOperation (type, opts) {
   }
 }
 
-function fragment (opts) {
+export function fragment (opts) {
   if (typeof opts === 'string') {
     return fragment({ definition: opts })
   }
 
   const { name, on, definition } = opts
-  const fragmentName = name || (on && `Fragment${on}`) || extractFragmentName(definition)
+  const assumedFragmentName = name || on || extractFragmentName(definition)
+  const fragmentName = assumedFragmentName + (FragmentMap[assumedFragmentName] ? Object.keys(FragmentMap).length : '')
   const fragmentDefinition = on ? `fragment ${fragmentName} on ${on} ${definition}` : definition
 
   const fragmentObj = {
@@ -92,12 +93,14 @@ function fragment (opts) {
   return fragmentObj
 }
 
-function query (opts) {
+export function query (opts) {
   return createOperation('query', opts)
 }
 
-function mutation (opts) {
+export function mutation (opts) {
   return createOperation('mutation', opts)
 }
 
-export { fragment, query, mutation }
+export function reset () {
+  FragmentMap = {}
+}
