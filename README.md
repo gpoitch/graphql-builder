@@ -1,4 +1,4 @@
-# GraphQL Builder [![Build Status](https://travis-ci.org/gdub22/graphql-builder.svg?branch=master)](https://travis-ci.org/gdub22/graphql-builder)
+# GraphQL Builder [![Build Status](https://travis-ci.org/gpoitch/graphql-builder.svg?branch=master)](https://travis-ci.org/gpoitch/graphql-builder)
 
 A simple string utility to build GraphQL queries.
 
