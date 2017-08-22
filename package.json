@@ -1,6 +1,6 @@
 {
   "name": "graphql-builder",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "A simple string utility to build GraphQL queries",
   "main": "dist/graphql-builder.js",
   "module": "dist/graphql-builder.es.js",
@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gdub22/graphql-builder.git"
+    "url": "git+https://github.com/gpoitch/graphql-builder.git"
   },
   "files": [
     "dist"
